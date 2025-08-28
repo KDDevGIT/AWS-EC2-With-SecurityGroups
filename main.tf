@@ -81,6 +81,23 @@ resource "aws_security_group" "web_sg" {
     }
 }
 
+# Use default VPC and Default Subnet per region
+data "aws_vpc" "default" {
+    default = true
+}
+
+data "aws_subnets" "default" {
+    filter {
+        name = "vpc-id"
+        values = [data.aws_vpc.default.id]
+    }
+}
+
+# Pick first default subnet 
+locals {
+    subnet_id = data.aws_subnets.default.ids[0]
+}
+
 
 
 
