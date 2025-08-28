@@ -40,4 +40,13 @@ variable "key_name" {
     default = null
 }
 
+# Allowed CIDR Block for SSH
+variable "allowed_ssh_cidr" {
+    description = "CIDR block allowed to SSH (Public IP)"
+    type = string
+    default = "0.0.0.0/32" # Can be changed if enabled
+}
+
+
+
 
