@@ -19,3 +19,11 @@ variable "instance_type" {
     default = "t3.micro" # For Free Tier
 }
 
+# Boolean for enabling Spot Instance
+variable "use_spot" {
+    description = "Launch as Spot Instance to Lower Cost"
+    type = bool
+    default = false
+}
+
+
