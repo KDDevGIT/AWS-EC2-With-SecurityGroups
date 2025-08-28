@@ -26,4 +26,11 @@ variable "use_spot" {
     default = false
 }
 
+# Boolean for enabling SSH
+variable "enable_ssh" {
+    description = "Toggle for Allowing SSH from IP"
+    type = bool
+    default = false
+}
+
 
