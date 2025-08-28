@@ -61,6 +61,13 @@ variable "instance_name" {
     default = "terraform-ec2-web"
 }
 
+# Root Instance Volume Size
+variable "root_volume_size" {
+    description = "Root EBS Volume Size (GB)"
+    type = number
+    default = 8
+}
+
 
 
 
