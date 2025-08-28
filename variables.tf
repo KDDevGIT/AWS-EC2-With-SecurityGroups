@@ -54,6 +54,13 @@ variable "http_cidr" {
     default = "0.0.0.0/0"
 }
 
+# Instance Name Tag
+variable "instance_name" {
+    description = "Name Tag for EC2 Instance"
+    type = string
+    default = "terraform-ec2-web"
+}
+
 
 
 
