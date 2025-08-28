@@ -40,12 +40,20 @@ variable "key_name" {
     default = null
 }
 
-# Allowed CIDR Block for SSH
+# Allowed CIDR Block for SSH (Port 20)
 variable "allowed_ssh_cidr" {
     description = "CIDR block allowed to SSH (Public IP)"
     type = string
     default = "0.0.0.0/32" # Can be changed if enabled
 }
+
+# Allowed CIDR Block for HTTP (Port 80)
+variable "http_cidr" {
+    description = "CIDR allowed to reach HTTP (Port 80)"
+    type = string
+    default = "0.0.0.0/0"
+}
+
 
 
 
