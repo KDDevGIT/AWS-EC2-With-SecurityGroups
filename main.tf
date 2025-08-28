@@ -98,6 +98,18 @@ locals {
     subnet_id = data.aws_subnets.default.ids[0]
 }
 
+# Web Page using nginx
+locals {
+    user_data = <<-EOF
+    #!/bin/bash
+    dnf -y update
+    dnf -y install nginx
+    systemctl enable nginx
+    echo "<h1>Deployed with Terraform</h1>" > /usr/share/nginx/html/index.html
+    systemctl start nginx
+    EOF
+}
+
 
 
 
