@@ -33,4 +33,11 @@ variable "enable_ssh" {
     default = false
 }
 
+# Key Pair for EC2 for SSH
+variable "key_name" {
+    description = "Existing EC2 key pair name to use for SSH"
+    type = string
+    default = null
+}
+
 
