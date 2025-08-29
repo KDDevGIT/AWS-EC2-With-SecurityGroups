@@ -110,7 +110,52 @@ locals {
     EOF
 }
 
+# Primary EC2 Instance (With Optional Spot Instance)
+resource "aws_instance" "web" {
+    ami = data.aws_ami.al2023.id
+    instance_type = var.instance_type
+    subnet_id = local.subnet_id
+    associate_public_ip_address = true
+    vpc_security_group_ids = [aws_security_group.web_sg.id]
+    iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
+    user_data = local.user_data
 
+    dynamic "credit_specification" {
+        for_each = contains(["t3.micro", "t3.small", "t3.medium","t2.micro"],
+        var.instance_type) ? [1] : []
+        content {
+            cpu_credits = "standard"
+        }
+    }
+
+    key_name = var.enable_ssh && var.key_name != null ? var.key_name : null
+
+    root_block_device {
+      volume_size = var.root_volume_size
+      volume_type = "gp3"
+      delete_on_termination = true
+      encrypted = true
+    }
+
+    metadata_options {
+      http_tokens = "required"
+    }
+
+    dynamic "instance_market_options" {
+        for_each = var.use_spot ? [1] : []
+        content {
+            market_type = "spot"
+            spot_options {
+              instance_interruption_behavior = "terminate"
+              spot_instance_type = "one-time"
+            }
+        }      
+    }
+    tags = {
+        Name = var.instance_name
+        Project = "ec2-secgroup-terraform"
+    }
+}
 
 
 
